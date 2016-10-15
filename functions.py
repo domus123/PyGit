@@ -8,7 +8,6 @@ comment = ""
 project_name = ""
 add = []
 
-
 #Create a new project
 #Get project name and language 
 class new_project():
@@ -38,7 +37,7 @@ class add_file():
     def __init__(self,f_name):
         self.connect_db()
         self.list = False
-        self.f_name = f_name
+        self.f_name = (f_name)
         self.osc = os_manager()
         self.vers = rand_vers()
         self.time = get_time()
@@ -68,10 +67,9 @@ class add_file():
         
 
     def insert_db(self,f_name):
+        
         project_name = get_project()
         global comment
-        
-
         text = self.read_file(f_name)
         if text != False:
             self.cur.execute("INSERT INTO arquivo (date,vers,projeto,arqname,comentario,codigo) VALUES (?,?,?,?,?,?)", (self.time,self.vers,project_name,f_name,comment,text,))
@@ -81,7 +79,7 @@ class add_file():
         
 
     def insert_file(self):
-        if self.f_name == '*':
+        if self.f_name == 'all':
             for item in self.osc.get_files():
                 self.insert_db(item) 
         else :
@@ -121,7 +119,7 @@ def get_project():
     file.close()
     return name
 
-def change_project(project_name): 
+def set_project(project_name): 
     file = open('.fname', 'w+') 
     file.write(project_name)
     file.close
@@ -188,12 +186,11 @@ def get_last():
     project_name = "teste2"
     cur = db_connect()
     c = cur.get_c()
-    c.execute('SELECT DISTINCT vers,date FROM arquivo WHERE projeto = ? ORDER BY date DESC LIMIT 1 ',(project_name,))
+    c.execute('SELECT DISTINCT vers,date FROM arquivo WHERE projeto = ? ORDER BY date ASC LIMIT 1 ',(project_name,))
     result = c.fetchone() 
     last = result[0] 
     print "Vers:{0} Date:{1}".format(result[0],result[1])
     return last
-get_last()
 
 #Get all the versions and commit from project 
 def get_vers(): 
@@ -221,11 +218,10 @@ def get_proj():
 
 #Initialize a new project 
 def init (lst):    
-    project_name = get_project()
     name = lst[2]
     lang = lst[3]
     proj = new_project(name,lang)
-    project_name = name
+    set_project(name)
 
 #Create a commit     
 def commit (lst):
@@ -263,16 +259,20 @@ def get(project_name):
     conn.close()
 
 def cng(lst):
-    project_name = get_project()
     try:
         project_name = lst[2]
-        print "Sellected project " + project_name
+        set_project(project_name)
+        print "Selected project " + project_name
+        
     except :
         print "Error"
         
 def add  (lst):
-    add_constr = add_file(lst[2])
-    add_constr.insert_file()
+    try:
+        add_constr = add_file(lst[2])
+        add_constr.insert_file()
+    except: 
+        print "Error adding files"
 
 def ls ():
     osc = os_manager()
