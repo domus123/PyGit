@@ -5,6 +5,7 @@ import datetime as dt
 import time 
 
 add = []
+db_path = "./pg.db"
 
 #Create a new project
 #Get project name and language 
@@ -17,18 +18,20 @@ class new_project():
         self.create_project()
         
     def connect_db(self):
-        self.conn = sqlite3.connect("pg.db")
+        global db_path
+        self.conn = sqlite3.connect(db_path)
         self.cur = self.conn.cursor()
 
     def create_project(self):
-       try:
-           self.cur.execute("INSERT INTO projects (nome,linguagem) VALUES (?,?)",( self.name,self.ling,))
-           self.conn.commit()
-           self.conn.close()
-           print self.name + " sucessfull created"
-       except :
-           print "Project already exist"
-           self.conn.close()
+        #try:
+        
+        self.cur.execute("INSERT INTO projects (nome,linguagem) VALUES (?,?)" ,(self.name,self.ling,))
+        self.conn.commit()
+        self.conn.close()
+        print self.name + " sucessfull created"
+        #except :
+        #   print "Project already exist"
+        #   self.conn.close()
                     
 #Add files to the currently project
 class add_file():
@@ -41,7 +44,8 @@ class add_file():
         self.time = get_time()
 
     def connect_db(self):
-        self.conn = sqlite3.connect("pg.db")
+        global db_path
+        self.conn = sqlite3.connect(db_path)
         self.conn.text_factory = str
         self.cur = self.conn.cursor()
             
@@ -101,7 +105,8 @@ class os_manager():
 #Just for avoid use a lot of the same 
 class db_connect (): 
     def __init__(self): 
-        self.conn = sqlite3.connect('pg.db')
+        global db_path
+        self.conn = sqlite3.connect(db_path)
         self.c = self.conn.cursor()
     def close_db(self):
         self.conn.close() 
@@ -112,13 +117,15 @@ class db_connect ():
 
 
 def get_project(): 
-    file = open('.fname', 'r+')  #if the file doens't exist it will create
+
+    file = open('.fname', 'r')  #if the file doens't exist it will create
     name = file.read() 
     file.close()
     return name
 
 def set_project(project_name): 
-    file = open('.fname', 'w+') 
+
+    file = open('.fname', 'w') 
     file.write(project_name)
     file.close
 
@@ -234,12 +241,19 @@ def get_proj():
 
 #Initialize a new project 
 def init (lst):    
+
     name = lst[2]
     lang = lst[3]
+    print "Name:", name
+    print "Lang:", lang
+   
     proj = new_project(name,lang)
     set_project(name)
+   # except : 
+   #     pass 
 
 def get_file(file_name):
+
     project_name = get_project()
     cur = db_connect()
     c = cur.get_c()
@@ -254,23 +268,27 @@ def get_file(file_name):
     cur.close_db()
 
 def get(project_name):
-    conn = sqlite3.connect('pg.db')
+
+    global db_path
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
-    c.execute('SELECT arqname FROM arquivos where projeto = ?', (project_name,))
+    c.execute('SELECT arqname FROM arquivo where projeto = ?', (project_name,))
     lst = c.fetchall()
     if lst == [] :
         print "Project not founded"
+        print "OR"
+        print "Empty project"
     else:
         for item in lst :
             print item[0]
     conn.close()
 
 def cng(lst):
+    
     try:
         project_name = lst[2]
         set_project(project_name)
         print "Selected project " + project_name
-        
     except :
         print "Error"
         
@@ -281,13 +299,10 @@ def add  (lst):
     except: 
         print "Error adding files"
 
-def ls ():
-    osc = os_manager()
-    for item in osc.get_files():
-        print item
-        
-def pull():
-    conn = sqlite3.connect('pg.db')
+
+def ls():
+    global db_path
+    conn = sqlite3.connect(db_path)
     c = conn.cursor()
     c.execute('SELECT * FROM projects')
     lst = c.fetchall()
@@ -296,9 +311,5 @@ def pull():
     conn.close()
     return True
 
-    
-def push(str):
-    name = str[2]
-    return "pushing to ... " + name 
 
 
