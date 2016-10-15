@@ -59,7 +59,7 @@ class add_file():
             return False
 
     def exist(self,f_name):
-        global project_name 
+        project_name = get_project() 
         self.cur.execute("SELECT * FROM arquivo WHERE arqname = ? AND projeto = ?",(f_name,project_name,))
         if self.cur.fetchone() :
             return True
@@ -68,7 +68,7 @@ class add_file():
         
 
     def insert_db(self,f_name):
-        global project_name
+        project_name = get_project()
         global comment
         
 
@@ -114,11 +114,23 @@ class db_connect ():
     def get_conn(self): 
         return self.conn 
 
+
+def get_project(): 
+    file = open('.fname', 'r+')  #if the file doens't exist it will create
+    name = file.read() 
+    file.close()
+    return name
+
+def change_project(project_name): 
+    file = open('.fname', 'w+') 
+    file.write(project_name)
+    file.close
+
 #Get the file list
 #Create a directory with the project name
 #And copy all files from database to local directory
 def write_clone(file_lst): 
-    global project_name
+    project_name = get_project()
     osc = os_manager() 
     path = osc.get_path() + "/" + project_name
     try: 
@@ -172,7 +184,7 @@ def get_time() :
 
 #Get last version of the project 
 def get_last(): 
-    global project_name 
+    project_name = get_project()
     project_name = "teste2"
     cur = db_connect()
     c = cur.get_c()
@@ -185,7 +197,7 @@ get_last()
 
 #Get all the versions and commit from project 
 def get_vers(): 
-    global project_name 
+    project_name = get_project()
     cur = db_connect()
     c = cur.get_c()
     c.execute('SELECT DISTINCT vers,comentario,date FROM arquivo WHERE projeto= ? ORDER BY date DESC', (project_name,))
@@ -201,7 +213,7 @@ def rand_vers() :
 
 
 def get_proj():
-    global project_name
+    project_name = get_project()
     if project_name == "":
         return "No project sellected"
     else:
@@ -209,7 +221,7 @@ def get_proj():
 
 #Initialize a new project 
 def init (lst):    
-    global project_name
+    project_name = get_project()
     name = lst[2]
     lang = lst[3]
     proj = new_project(name,lang)
@@ -225,7 +237,7 @@ def commit (lst):
     return comment
 
 def get_file(file_name):
-    global project_name
+    project_name = get_project()
     cur = db_connect()
     c = cur.get_c()
     c.execute('SELECT codigo FROM arquivos WHERE projeto = ? AND arqname = ?', (project_name,file_name,))
@@ -251,7 +263,7 @@ def get(project_name):
     conn.close()
 
 def cng(lst):
-    global project_name
+    project_name = get_project()
     try:
         project_name = lst[2]
         print "Sellected project " + project_name
