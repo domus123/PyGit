@@ -1,6 +1,8 @@
 import sys 
 import functions as fc
 
+#working on parser 
+
 def main() :
     str_input =""
     while (True) :
@@ -22,10 +24,14 @@ def parser(splited_str):
         except :
             print "Faltando linguagem"
     elif (opc == 'getfile'):
-        try:
-            fc.get_file(splited_str[2])
-        except :
-            print "Faltando nome do arquivo" 
+        print splited_str[2]
+        fc.get_file(splited_str[2])
+        #        print "Faltando nome do arquivo" 
+    
+    elif (opc == 'get_vers') : 
+        fc.get_vers()
+    elif (opc == 'clone') : 
+        fc.pg_clone(splited_str)
     elif (opc == 'change'):
         fc.cng(splited_str)
     elif (opc == 'commit'):
