@@ -18,46 +18,50 @@ def guide():
 
 
 def parser(args):
-    args_len = len(args) 
-    opc = args[1]
-    if args_len == 1 : 
-        print "Invalid input"
-    if (opc == 'init'):
-        try: 
-            fc.init(args)
-        except :
-            pass
-            #print "Missing language"
 
-    elif (opc == 'getfile'):
-        if args_len == 2 : 
-            fc.get_file(args[2])
-        else : 
-            print "Missing file name"
-    elif (opc == 'get_vers') : 
-        fc.get_vers()
-    elif (opc == 'clone') : 
-        fc.pg_clone(args)
-    elif (opc == 'change'):
-        fc.cng(args)
-    elif (opc == 'commit'):
-        fc.set_commit(args,args_len)
-    elif (opc == 'ls') :
-        fc.ls()
-    elif (opc == 'get'):
-        fc.get(args[2])
-    elif (opc == 'add'):
-        fc.add(args)
-    elif (opc == 'pull'):
-        print fc.pull()
-    elif (opc == 'push'):
-        print fc.push(args)
-    elif (opc == 'proj'):
-        print fc.get_proj()
-    elif (opc == 'guide'):
-        guide()
-    else :
-        print "Invalid option"
+    try:
+        args_len = len(args) 
+        opc = args[1]
+        if args_len == 1 : 
+            print "Invalid input"
+        if (opc == 'init'):
+            try: 
+                fc.init(args)
+            except :
+                pass
+                    #print "Missing language"
+                    
+        elif (opc == 'getfile'):
+            if args_len == 2 : 
+                fc.get_file(args[2])
+            else : 
+                print "Missing file name"
+        elif (opc == 'get_vers') : 
+            fc.get_vers()
+        elif (opc == 'clone') : 
+            fc.pg_clone(args)
+        elif (opc == 'change'):
+            fc.cng(args)
+        elif (opc == 'commit'):
+            fc.set_commit(args,args_len)
+        elif (opc == 'ls') :
+            fc.ls()
+        elif (opc == 'get'):
+            fc.get(args[2])
+        elif (opc == 'add'):
+            fc.add(args)
+        elif (opc == 'pull'):
+            print fc.pull()
+        elif (opc == 'push'):
+            print fc.push(args)
+        elif (opc == 'proj'):
+            print fc.get_proj()
+        elif (opc == 'guide'):
+            guide()
+        else :
+            print "Invalid option"
+    except:
+        print "wrong number of arguments"
 
 
 if __name__ == '__main__': 
