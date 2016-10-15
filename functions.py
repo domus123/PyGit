@@ -4,8 +4,6 @@ import random as rd
 import datetime as dt
 import time 
 
-comment = ""
-project_name = ""
 add = []
 
 #Create a new project
@@ -69,7 +67,7 @@ class add_file():
     def insert_db(self,f_name):
         
         project_name = get_project()
-        global comment
+        comment = get_commit()
         text = self.read_file(f_name)
         if text != False:
             self.cur.execute("INSERT INTO arquivo (date,vers,projeto,arqname,comentario,codigo) VALUES (?,?,?,?,?,?)", (self.time,self.vers,project_name,f_name,comment,text,))
@@ -124,6 +122,24 @@ def set_project(project_name):
     file.write(project_name)
     file.close
 
+def get_commit():
+    file = open('.commit', 'r+') 
+    commit = ""
+    for line in file : 
+        commit += line
+    file.close()
+    return commit 
+
+def set_commit(words,size) : 
+
+    commit = ""
+    file = open('.commit', 'w')
+    for i in xrange(2,size):
+        commit += words[i] + " "
+    file.write(commit)
+    file.close()
+    
+    
 #Get the file list
 #Create a directory with the project name
 #And copy all files from database to local directory
@@ -222,15 +238,6 @@ def init (lst):
     lang = lst[3]
     proj = new_project(name,lang)
     set_project(name)
-
-#Create a commit     
-def commit (lst):
-    size = len(lst)
-    global comment
-    comment = ""
-    for i in xrange(2,size):
-        comment += lst[i] + " "
-    return comment
 
 def get_file(file_name):
     project_name = get_project()
