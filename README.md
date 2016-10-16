@@ -1,5 +1,32 @@
 #PyGit
 
+#Dependencies 
+
+* Python 2.7 
+* Sqlite3 
+
+#installing dependencies 
+
+* You can download Python from here https://www.continuum.io/downloads 
+* Sqlite3 can be installed via terminal command 
+
+
+<h4> Linux </h4> 
+<h6> sudo apt-get install sqlite3 
+
+
+<h4> Mac OSX </h4> 
+
+<p> Download sqlite-autoconf-*.tar.gz from http://www.sqlite.org/download.html 
+
+<h6> 
+<p>tar xvfz sqlite-autoconf-3071502.tar.gz
+<p>cd sqlite-autoconf-3071502
+<p>./configure --prefix=/usr/local
+<p>make
+<p>make install
+</h6> 
+
 
 #How to use 
 * python create_db.py 
