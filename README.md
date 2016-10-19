@@ -39,15 +39,15 @@
    pg --version        #To get version
 
 
-   pg init project_name Language
-   pg commit Commit  
-   pg guide             
-   pg clone 
-   pg clone vers
-   pg get_vers
-   pg change project_name
-   pg proj 
-   pg ls 
+   pg init project_name Language        #Create a new project
+   pg commit comment                    #Set tho commit comment that will be added to this version
+   pg guide                             #Show guide menu
+   pg clone                             #Clone files from currently project db to local folder
+   pg clone vers                        #Get a specific vers of the currently project
+   pg get_vers                          #Get all commits made to the curretly project
+   pg change project_name               #Change working project
+   pg proj                              #Show currently project
+   pg ls                                #List all projects 
 ```
 
 #Bugs 
