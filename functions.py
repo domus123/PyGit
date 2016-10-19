@@ -246,16 +246,15 @@ def get_proj():
 
 #Initialize a new project 
 def init (lst):    
-
-    name = lst[2]
-    lang = lst[3]
-    print "Name:", name
-    print "Lang:", lang
-   
-    proj = new_project(name,lang)
-    set_project(name)
-   # except : 
-   #     pass 
+    try: 
+        name = lst[2]
+        lang = lst[3]
+        print "Name:", name
+        print "Lang:", lang
+        proj = new_project(name,lang)
+        set_project(name)
+    except  : 
+        print "Missing data" 
 
 def get_file(file_name):
 

@@ -30,14 +30,9 @@ def parser(args):
         if args_len == 1 : 
             print "Invalid input"
         else: 
-            """if (opc == 'init'):
+            if (opc == 'init'):
                 fc.init(args)
                     
-            elif (opc == 'getfile'):
-                    if args_len == 2 : 
-                        fc.get_file(args[2])
-                    else : 
-                        print "Missing file name" """
             if (opc =='--version'):
                 global vers
                 print "Python Git Version:",vers
@@ -61,8 +56,6 @@ def parser(args):
                 print fc.get_proj()
             elif (opc == 'guide'):
                 guide()
-            else :
-                print "Invalid option"
     except IndexError: 
         guide()
         
