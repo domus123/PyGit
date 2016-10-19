@@ -12,39 +12,44 @@
 
 
 <h4> Linux </h4> 
-<h6>       sudo apt-get install sqlite3 
-
+```bash
+   sudo apt-get install sqlite3 
+```
 
 <h4> Mac OSX </h4> 
 
 <p> Download sqlite-autoconf-*.tar.gz from http://www.sqlite.org/download.html 
 
-<h6> 
-<p>      tar xvfz sqlite-autoconf-3071502.tar.gz
-<p>      cd sqlite-autoconf-3071502
-<p>      ./configure --prefix=/usr/local
-<p>      make
-<p>      make install
-</h6> 
-
+```bash
+ 
+   tar xvfz sqlite-autoconf-3071502.tar.gz
+   cd sqlite-autoconf-3071502
+   ./configure --prefix=/usr/local
+   make
+   make install
+ 
+```
 
 #How to use
 
-*   sudo sh ./install.sh
-*   pg                  To open menu
-*   pg --version        To get version
+```bash
+   sudo sh ./install.sh
+```
+```python
+   pg                  #To open menu
+   pg --version        #To get version
 
 
-*   pg init project_name Language
-*   pg commit Commit  
-*   pg guide             
-*   pg clone 
-*   pg clone vers
-*   pg get_vers
-*   pg change project_name
-*   pg proj 
-*   pg ls 
-
+   pg init project_name Language
+   pg commit Commit  
+   pg guide             
+   pg clone 
+   pg clone vers
+   pg get_vers
+   pg change project_name
+   pg proj 
+   pg ls 
+```
 
 #Bugs 
 
