@@ -1,0 +1,2 @@
+CREATE TABLE projects (nome text PRIMARY KEY, linguagem TEXT);
+CREATE TABLE arquivo (date DATETIME,vers int,projeto text, arqname text ,comentario text, codigo text, foreign key (projeto) references projects(nome));
