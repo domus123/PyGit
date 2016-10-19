@@ -34,8 +34,7 @@
 
 ```bash
    sudo sh ./install.sh
-```
-```python
+
    pg                  #To open menu
    pg --version        #To get version
 
