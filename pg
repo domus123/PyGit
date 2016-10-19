@@ -2,18 +2,24 @@
 
 import sys 
 import functions as fc
+vers = "0.02"
+
 
 
 def guide():
-    print "'pg init Project_name Language' to start a new project in the currently founder"
-    print "'pg commit comment' to add a comment to your commit"
-    print "'pg add all' to add all local files to the currently selected project"
-    print "'pg proj' to see currently selected project"
-    print "'pg get_vers to get all the commits made to the currently project"
-    print "'pg ls' to list all projects"
-    print "'pg change project_name' to change to the selected project"
-    print "'pg get project_name' to list all project files"
-
+    print "Python-Git" 
+    print "pg     --version"
+    print ""
+    print ""
+    print "       'init Project_name Language'       To start a new project in the currently founder"
+    print "       'commit comment'                   To add a comment to your commit"
+    print "       'add all'                          To add all local files to the currently selected project"
+    print "       'proj'                             To see currently selected project"
+    print "       'get_vers'                         To get all the commits made to the currently project"
+    print "       'ls'                               To list all projects"
+    print "       'change project_name'              To change to the selected project"
+    print "       'get project_name'                 To list all project files"
+    print ""
 
 def parser(args):
 
@@ -32,7 +38,10 @@ def parser(args):
                         fc.get_file(args[2])
                     else : 
                         print "Missing file name" """
-            if (opc == 'get_vers') : 
+            if (opc =='--version'):
+                global vers
+                print "Python Git Version:",vers
+            elif (opc == 'get_vers') : 
                 fc.get_vers()
             elif (opc == 'clone') : 
                 fc.pg_clone(args)
@@ -55,8 +64,8 @@ def parser(args):
             else :
                 print "Invalid option"
     except IndexError: 
-        print "Invalid number of arguments"
-                        
+        guide()
+        
 if __name__ == '__main__': 
     args = sys.argv
     parser(args)
