@@ -32,7 +32,7 @@ class new_project():
         self.cur.execute("INSERT INTO projects (nome,linguagem) VALUES (?,?)" ,(self.name,self.ling,))
         self.conn.commit()
         self.conn.close()
-        print self.name + " sucessfull created"
+        print self.name + " successful created"
         #except :
         #   print "Project already exist"
         #   self.conn.close()
@@ -79,7 +79,7 @@ class add_file():
         text = self.read_file(f_name)
         if text != False:
             self.cur.execute("INSERT INTO arquivo (date,vers,projeto,arqname,comentario,codigo) VALUES (?,?,?,?,?,?)", (self.time,self.vers,project_name,f_name,comment,text,))
-            print "Sucessfull added " + f_name + " to " + project_name + " version:" + str(self.vers)
+            print "Successful added " + f_name + " to " + project_name + " version:" + str(self.vers)
         else :
             pass
         
