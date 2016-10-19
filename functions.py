@@ -5,7 +5,11 @@ import datetime as dt
 import time 
 
 add = []
-db_path = "./pg.db"
+home = os.environ['HOME']
+db_path = home + "/.pygit/pg.db"
+fname_path = home + "/.pygit/.fname"
+commit_path = home + "/.pygit/.commit"
+
 
 #Create a new project
 #Get project name and language 
@@ -118,19 +122,21 @@ class db_connect ():
 
 def get_project(): 
 
-    file = open('.fname', 'r')  #if the file doens't exist it will create
+    global fname_path 
+    file = open(fname_path, 'r')  #if the file doens't exist it will create
     name = file.read() 
     file.close()
     return name
 
 def set_project(project_name): 
-
-    file = open('.fname', 'w') 
+    global fname_path
+    file = open(fname_path, 'w') 
     file.write(project_name)
     file.close
 
 def get_commit():
-    file = open('.commit', 'r+') 
+    global commit_path
+    file = open(commit_path, 'r+') 
     commit = ""
     for line in file : 
         commit += line
@@ -138,9 +144,10 @@ def get_commit():
     return commit 
 
 def set_commit(words,size) : 
-
+    
     commit = ""
-    file = open('.commit', 'w')
+    global commit_path
+    file = open(commit_path, 'w')
     for i in xrange(2,size):
         commit += words[i] + " "
     file.write(commit)
@@ -190,8 +197,7 @@ def clone_query(vers) :
 #If one is passed it will clone it 
 def pg_clone(str): 
     try: 
-        trs = str[2]          
-        vers = trs
+        vers = str[2]          
     except: 
         vers = get_last() 
     clone_query(vers)
