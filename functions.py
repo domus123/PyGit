@@ -195,11 +195,11 @@ def clone_query(vers) :
 #Parse the version 
 #If none is passed it will clone the last one
 #If one is passed it will clone it 
-def pg_clone(str): 
+def pg_clone(lst): 
     try: 
-        vers = str[2]          
+        vers = lst[2]          
     except: 
-        vers = get_last() 
+        vers = get_last()
     clone_query(vers)
 
 #Get local time 
@@ -212,14 +212,13 @@ def get_time() :
 #Get last version of the project 
 def get_last(): 
     project_name = get_project()
-    project_name = "teste2"
     cur = db_connect()
     c = cur.get_c()
-    c.execute('SELECT DISTINCT vers,date FROM arquivo WHERE projeto = ? ORDER BY date ASC LIMIT 1 ',(project_name,))
+    c.execute('SELECT DISTINCT vers,date FROM arquivo WHERE projeto = ? ORDER BY date DESC LIMIT 1 ',(project_name,))
     result = c.fetchone() 
-    last = result[0] 
     print "Vers:{0} Date:{1}".format(result[0],result[1])
-    return last
+    return result[0] #Version number
+    
 
 #Get all the versions and commit from project 
 def get_vers(): 

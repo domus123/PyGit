@@ -1,8 +1,7 @@
 #!/bin/bash
 
 echo "Creating database ....."
-python create_db.py
-
+sqlite3 pg.db < .sqlite3script
 chmod 777 pg.db
 
 echo "Creating .pygit file"
