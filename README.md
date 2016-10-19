@@ -7,7 +7,7 @@
 
 #installing dependencies 
 
-* You can download Python from here https://www.continuum.io/downloads 
+* You can download Python from [HERE](https://www.continuum.io/downloads)
 * Sqlite3 can be installed via terminal command 
 
 
@@ -18,7 +18,7 @@
 
 <h4> Mac OSX </h4> 
 
-<p> Download sqlite-autoconf-*.tar.gz from http://www.sqlite.org/download.html 
+<p> Download sqlite-autoconf-*.tar.gz from [HERE](http://www.sqlite.org/download.html)
 
 ```bash
  
