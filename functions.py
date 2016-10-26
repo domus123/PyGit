@@ -27,15 +27,15 @@ class new_project():
         self.cur = self.conn.cursor()
 
     def create_project(self):
-        #try:
-        
-        self.cur.execute("INSERT INTO projects (nome,linguagem) VALUES (?,?)" ,(self.name,self.ling,))
-        self.conn.commit()
-        self.conn.close()
-        print self.name + " successful created"
-        #except :
-        #   print "Project already exist"
-        #   self.conn.close()
+        try:
+            self.cur.execute("INSERT INTO projects (nome,linguagem) VALUES (?,?)" ,(self.name,self.ling,))
+            self.conn.commit()
+            self.conn.close()
+            print self.name + " successful created"
+
+        except sqlite3.IntegrityError:
+           print "Project already exist"
+           self.conn.close()
                     
 #Add files to the currently project
 class add_file():
@@ -119,7 +119,7 @@ class db_connect ():
     def get_conn(self): 
         return self.conn 
 
-
+#Get currently project from .fname
 def get_project(): 
 
     global fname_path 
@@ -128,12 +128,14 @@ def get_project():
     file.close()
     return name
 
+#Change project name from fname
 def set_project(project_name): 
     global fname_path
     file = open(fname_path, 'w') 
     file.write(project_name)
     file.close
 
+#Get currently commit from .commit file
 def get_commit():
     global commit_path
     file = open(commit_path, 'r+') 
@@ -143,6 +145,7 @@ def get_commit():
     file.close()
     return commit 
 
+#Set new commit
 def set_commit(words,size) : 
     
     commit = ""
@@ -245,16 +248,15 @@ def get_proj():
         return "Actual dir: " +  project_name
 
 #Initialize a new project 
-def init (lst):    
-    try: 
-        name = lst[2]
-        lang = lst[3]
-        print "Name:", name
-        print "Lang:", lang
-        proj = new_project(name,lang)
-        set_project(name)
-    except  : 
-        print "Missing data" 
+def init (lst):  
+  
+    name = lst[2]
+    lang = lst[3]
+    print "Name:", name
+    print "Lang:", lang  
+    proj = new_project(name,lang)
+    set_project(name)
+
 
 def get_file(file_name):
 
@@ -271,6 +273,7 @@ def get_file(file_name):
         return l 
     cur.close_db()
 
+#Getfile string from project_name 
 def get(project_name):
 
     global db_path
@@ -287,6 +290,7 @@ def get(project_name):
             print item[0]
     conn.close()
 
+#Change the selected project
 def cng(lst):
     
     try:
@@ -295,7 +299,7 @@ def cng(lst):
         print "Selected project " + project_name
     except :
         print "Error"
-        
+
 def add  (lst):
     try:
         add_constr = add_file(lst[2])
@@ -303,7 +307,7 @@ def add  (lst):
     except: 
         print "Error adding files"
 
-
+#List all projects in the database
 def ls():
     global db_path
     conn = sqlite3.connect(db_path)

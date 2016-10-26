@@ -5,7 +5,7 @@ import functions as fc
 vers = "0.02"
 
 
-
+#menu
 def guide():
     print "Python-Git" 
     print "pg     --version"
@@ -21,6 +21,7 @@ def guide():
     print "       'get project_name'                 To list all project files"
     print ""
 
+#Input parser
 def parser(args):
 
     try:
