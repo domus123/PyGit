@@ -16,10 +16,10 @@ touch ~/.pygit/.fname
 sudo mv pg.db ~/.pygit/
 
 #mv pg.py pg
-sudo chmod 777 pg
-sudo cp pg /usr/local/bin/
-sudo chmod 777 functions.py
-sudo cp functions.py /usr/local/bin/
+sudo chmod 777 src/pg
+sudo cp src/pg /usr/local/bin/
+sudo chmod 777 src/functions.py
+sudo cp src/functions.py /usr/local/bin/
 
 
 echo ""
